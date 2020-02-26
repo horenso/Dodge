@@ -6,7 +6,7 @@ class Player {
         this.hit = false;
         this.life = 100;
         this.slowMoEnergy = 100;
-        this.slowMoChargeWaiting = 10.0;
+        this.slowMoChargeWaiting = 2.0;
     }
 
     reset() {
