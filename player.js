@@ -6,6 +6,7 @@ class Player {
         this.hit = false;
         this.life = 100;
         this.slowMoEnergy = 100;
+        this.slowMoChargeWaiting = 10.0;
     }
 
     reset() {
@@ -18,7 +19,13 @@ class Player {
     }
 
     draw() {
-        this.changeSlowMoEnergy(SLOWMORECHARGESPEED);
+        if (this.slowMoChargeWaiting == 0) {
+            this.changeSlowMoEnergy(SLOWMORECHARGESPEED);
+        } else {
+            this.slowMoChargeWaiting -= 1/frameRate();
+            this.slowMoChargeWaiting = constrain(this.slowMoChargeWaiting, 0, this.slowMoChargeWaiting);
+        }
+
         strokeWeight(1);
         rectMode(CORNER);
         // background square
@@ -49,11 +56,9 @@ class Player {
     }
 
     canSlowMo() {
-        if (this.slowMoEnergy > SLOWMOMINIMAL) {
-            this.changeSlowMoEnergy(SLOWMOCOST)
-            if (this.slowMoEnergy < 0) {
-                this.slowMoEnergy = 0;
-            }
+        if (this.slowMoEnergy > 0) {
+            this.changeSlowMoEnergy(SLOWMOCOST);
+            this.slowMoChargeWaiting = SLOWMORECHARGEWAIT;
             return true;
         } else {
             return false;
