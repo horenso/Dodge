@@ -2,7 +2,8 @@ let WIDTH = 400;
 let HEIGHT = 400;
 
 let PLAYERSIZE = 40;
-let PLAYERSPEED = 0.06;
+let PLAYERSPEED = 0.4;
+let PLAYERACCELERATION = 0.05;
 let DAMAGE = 1;
 
 let GAPWIDTH = 66;

@@ -6,6 +6,7 @@ var score;
 var slowMo = false;
 var gameSpeed = 1.0;
 var obstacleSpeed;
+var acceleration = 0.0;
 
 function setup() {
 	createCanvas(WIDTH, HEIGHT);
@@ -30,11 +31,21 @@ function userMovement() {
 	}
 
 	if (keyIsDown(37) || keyIsDown(65)) {
-		player.move(-0.4 * gameSpeed * deltaTime);
-	}
-
-	if (keyIsDown(39) || keyIsDown(68)) {
-		player.move(0.4 * gameSpeed * deltaTime);
+		acceleration -= PLAYERACCELERATION;
+		acceleration = constrain(acceleration, -PLAYERSPEED, PLAYERSPEED);
+		player.move(acceleration * gameSpeed * deltaTime);
+	} else if (keyIsDown(39) || keyIsDown(68)) {
+		acceleration += PLAYERACCELERATION;
+		acceleration = constrain(acceleration, -PLAYERSPEED, PLAYERSPEED);
+		player.move(acceleration * gameSpeed * deltaTime);
+	} else {
+		if (acceleration < - (2 * PLAYERACCELERATION)) {
+			acceleration += PLAYERACCELERATION;
+		} else if (acceleration > (2 * PLAYERACCELERATION)) {
+			acceleration -= PLAYERACCELERATION;
+		} else {
+			acceleration = 0;
+		}
 	}
 }
 
